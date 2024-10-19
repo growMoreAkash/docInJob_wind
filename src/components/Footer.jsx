@@ -14,19 +14,19 @@ export default function Footer() {
                 <Image source={require('./img/About-Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
                 <Text className="text-purple-500 text-center text-md  px-1">About</Text>
             </Pressable>
-            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('About')}>
-                <Image source={require('./img/Session-Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
-                <Text className="text-purple-500 text-center text-md  px-1">Session</Text>
+            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('Doctor')}>
+                <Image source={require('./img/Doctor-Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
+                <Text className="text-purple-500 text-center text-md  px-1">Doctor</Text>
             </Pressable>
-            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('About')}>
+            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('Test')}>
                 <Image source={require('./img/Test-Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
                 <Text className="text-purple-500 text-center text-md  px-1">Test</Text>
             </Pressable>
-            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('About')}>
+            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('Comming')}>
                 <Image source={require('./img/Surgery--Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
                 <Text className="text-purple-500 text-center text-md  px-1">Surgery</Text>
             </Pressable>
-            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('About')}>
+            <Pressable className="items-center mx-[-15]" onPress={()=>navigation.navigate('Comming')}>
                 <Image source={require('./img/Medicine--Icon.png')} className=" h-7 mb-2" resizeMode="contain" />
                 <Text className="text-purple-500 text-center text-md  px-1">Medicine</Text>
             </Pressable>
