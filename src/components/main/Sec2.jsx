@@ -13,28 +13,28 @@ const Sec2 = () => {
 
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} className="flex-row my-5 py-5">
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/Cardiologist-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/Cardiologist-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
 
                     <Text className="text-center mt-2">Cardiologist</Text>
                 </Pressable>
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/Neurology-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/Neurology-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
                     <Text className="text-center mt-2">Neurologist</Text>
                 </Pressable>
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/Dentist-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/Dentist-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
                     <Text className="text-center mt-2">Dentist</Text>
                 </Pressable>
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/General-Physician-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/General-Physician-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
                     <Text className="text-center mt-2">General Physician</Text>
                 </Pressable>
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/Orthopedic-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/Orthopedic-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
                     <Text className="text-center mt-2">Orthopedic</Text>
                 </Pressable>
                 <Pressable className="items-center mx-[-25] ml-[1]" onPress={()=>navigation.navigate('Doctor')}>
-                    <Image source={require('.././img/Urology-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
+                    <Image source={require('../../img/Urology-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
                     <Text className="text-center mt-2">Urology</Text>
                 </Pressable>
             </ScrollView>

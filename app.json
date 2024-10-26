@@ -12,13 +12,20 @@
       "backgroundColor": "#2c0078"
     },
     "ios": {
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      },
       "supportsTablet": true
     },
     "android": {
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2c0078"
-      }
+      },
+      "package": "com.docinjob.wind"
     },
     "web": {
       "favicon": "./assets/favicon.png"

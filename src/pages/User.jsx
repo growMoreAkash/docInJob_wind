@@ -1,13 +1,16 @@
 import { View, Text, TextInput, Pressable } from 'react-native';
 import React, { useState } from 'react';
+import { GetOtp, Login } from '../api/api';
 
-const Signup = () => {
+const User = ({ route }) => {
+    const { user, getUser } = route.params;
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
 
     const sendOtp = () => {
         if (phoneNumber) {
+            GetOtp({phone: `+91${phoneNumber}`});
             setOtpSent(true);
             alert('OTP sent to ' + phoneNumber);
         } else {
@@ -15,9 +18,10 @@ const Signup = () => {
         }
     };
 
-    const submitForm = () => {
+    const submitForm = async () => {
         if (otp && phoneNumber) {
-            alert('OTP Submitted: ' + otp);
+            await Login({phone: `+91${phoneNumber}`, otp: otp});
+            getUser();
         } else {
             alert('Please enter the OTP.');
         }
@@ -78,4 +82,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default User;

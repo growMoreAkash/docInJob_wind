@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable, Image, ScrollView, Alert } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Sec1 = () => {
+const Sec1 = ({ setCityIndex, cities, specialities, cityIndex }) => {
     const [Location, setLocation] = useState("");
     const [Search, setSearch] = useState("");
 
@@ -11,11 +11,19 @@ const Sec1 = () => {
             Alert.alert("Error", "Both fields are required!");
             return;
         }
-        console.log("Location:", Location);
-        console.log("Search:", Search);
-        Alert.alert("Success", `Location: ${Location}\nSearch: ${Search}`);
-        
+        if (Search.trim()) {
+            if (specialities.includes(Search))
+                navigate(`/search?city=${Location}&speciality=${Search}`);
+            else
+                navigate(`/search/?city=${Location}&docSpe=${Search}`);
+        }
     };
+
+    useEffect(() => {
+        if (cityIndex < cities.length && cityIndex >= 0) {
+            setLocation(cities[cityIndex]);
+        }
+    }, [setLocation, cities, cityIndex]);
 
     return (
         <>
@@ -24,7 +32,7 @@ const Sec1 = () => {
             </Text>
             <View className="flex-row items-center w-11/12 h-12 px-4 bg-gray-100 border-[1px] border-orange-500 rounded-lg">
                 <Image
-                    source={require('.././img/Location-Icon.png')}
+                    source={require('../../img/Location-Icon.png')}
                     className="w-6 h-6 mr-2"
                     resizeMode="contain"
                 />
@@ -37,7 +45,7 @@ const Sec1 = () => {
             </View>
             <View className="flex-row items-center w-11/12 h-12 px-4 mt-4 bg-gray-100 border-[1px] border-orange-500 rounded-lg">
                 <Image
-                    source={require('.././img/Search-Icon.png')}
+                    source={require('../../img/Search-Icon.png')}
                     className="w-6 h-6 mr-2"
                     resizeMode="contain"
                 />
