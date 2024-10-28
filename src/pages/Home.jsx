@@ -9,7 +9,7 @@ const Home = ({ route }) => {
 
     return (
         <>
-            <ScrollView className="flex-1 mt-[60px] mb-16">
+            <ScrollView className="flex-1 pt-8 mb-16">
                 <View className="justify-start items-center">
                     <Sec1 setCityIndex={setCityIndex} cities={cities} specialities={specialities} cityIndex={cityIndex} />
 

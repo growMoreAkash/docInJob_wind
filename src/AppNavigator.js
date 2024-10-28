@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { GetUser, GetAdminUser, GetCities, GetSpecialities } from './api/api.jsx';
+import { GetUser, GetCities, GetSpecialities } from './api/api.jsx';
 import Splash from './components/Splash.jsx';
-import Navbar from "./components/Navbar.jsx";
+import Navbar from './components/Navbar.jsx';
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
@@ -49,7 +49,6 @@ export default function AppNavigator() {
         <Splash onFinish={handleSplashFinish} /> // Pass the function correctly
       ) : (
         <>
-          <Navbar />
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} initialParams={{ setCityIndex: setCityIndex, cities: cities, specialities: specialities, cityIndex: cityIndex }} />
             <Stack.Screen name="User" component={User} initialParams={{ user: user, getUser: getUser }} />
@@ -58,6 +57,7 @@ export default function AppNavigator() {
             <Stack.Screen name="Doctor" component={Doctor} initialParams={{ user: user, setCityIndex: setCityIndex, cities: cities, cityIndex: cityIndex, specialities: specialities }} />
             <Stack.Screen name="Test" component={Test} />
           </Stack.Navigator>
+          <Navbar />
           <Footer />
         </>
       )}

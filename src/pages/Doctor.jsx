@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, Modal, TextInput } from 'react-
 import { styled } from 'nativewind';
 import { GetSearch } from '../api/api';
 import DoctorCard from '../components/DoctorComponents/DoctorCard.jsx';
+import BookDoctor from '../components/DoctorComponents/BookDoctor.jsx';
 
 // Styling components with NativeWind
 const StyledView = styled(View);
@@ -100,6 +101,27 @@ const Doctor = ({ route }) => {
         </Modal>
     );
 
+    const renderDoctor = (key, doctor) => (
+        <Modal
+            transparent
+            visible={modalVisible.key === key && modalVisible.visible}
+            onRequestClose={() => setModalVisible({ key: '', visible: false })}
+        >
+            <StyledView className="flex-1 bg-black/50 justify-center items-center">
+                <StyledView className="bg-white px-3 py-2">
+                    <StyledView className="flex-row justify-between items-center">
+                        <StyledText className="text-lg font-semibold">Book Appointment</StyledText>
+                        <StyledTouchableOpacity onPress={() => setModalVisible({ key: '', visible: false })}>
+                            <StyledText>Close</StyledText>
+                        </StyledTouchableOpacity>
+                    </StyledView>
+                    <DoctorCard doctor={doctor} />
+                    <BookDoctor doctor={doctor} user={user} />
+                </StyledView>
+            </StyledView>
+        </Modal>
+    );
+
     return (
         <StyledView className="flex-1 p-4 mt-16">
             {/* Search Bar Section */}
@@ -138,8 +160,14 @@ const Doctor = ({ route }) => {
             </StyledText>
             <FlatList
                 data={results}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => <DoctorCard doctor={item} />}
+                keyExtractor={(item) => `${item.clinicId}${item.doctorId}`}
+                renderItem={({ item }) =>
+                    <StyledTouchableOpacity
+                        onPress={() => setModalVisible({ key: `${item.clinicId}${item.doctorId}`, visible: true })}
+                    >
+                        <DoctorCard doctor={item} />
+                    </StyledTouchableOpacity>
+                }
             />
             {page < pages && (
                 <StyledTouchableOpacity
@@ -149,6 +177,9 @@ const Doctor = ({ route }) => {
                     <StyledText className="text-white">Load More</StyledText>
                 </StyledTouchableOpacity>
             )}
+
+            {/* Render Doctor Modals */}
+            {results.map((doctor) => renderDoctor(`${doctor.clinicId}${doctor.doctorId}`, doctor))}
 
             {/* Render Dropdown Modals */}
             {Object.keys(dropdownData).map((key) => renderDropdown(key))}
