@@ -1,5 +1,25 @@
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import * as Keychain from 'react-native-keychain';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+
+// To store the token securely
+async function storeToken(token) {
+  await Keychain.setGenericPassword('authToken', token);
+}
+
+// To retrieve the token
+async function getToken() {
+  const credentials = await Keychain.getGenericPassword();
+  if (credentials) {
+    return credentials.password;
+  }
+  return null;
+}
+
+// To delete the token
+async function deleteToken() {
+  await Keychain.resetGenericPassword();
+}
 
 const apiUrl = "https://www.docinjob.com/api"
 // const apiUrl = "http://localhost:3001/api"
@@ -63,7 +83,7 @@ export const Login = async ({ phone, otp }) => {
 
         const { token } = response.data;
 
-        Cookies.set('token', token, { expires: 3 });
+        storeToken(token);
 
         return response.data;
     } catch (error) {
@@ -75,12 +95,12 @@ export const Login = async ({ phone, otp }) => {
 };
 
 export const Logout = async () => {
-    Cookies.remove('token');
+    deleteToken();
 }
 
 export const GetUser = async () => {
     try {
-        const token = Cookies.get('token');
+        const token = getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -100,7 +120,7 @@ export const GetUser = async () => {
 
 export const UpdateUser = async ({ name, age, gender, address }) => {
     try {
-        const token = Cookies.get('token');
+        const token = getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -127,7 +147,7 @@ export const UpdateUser = async ({ name, age, gender, address }) => {
 
 export const BookAppointment = async ({ data }) => {
     try {
-        const token = Cookies.get('token');
+        const token = getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -158,7 +178,7 @@ export const AppointmentPayment = async ({ params }) => {
 
 export const GetAppointments = async ({ data }) => {
     try {
-        const token = Cookies.get('token');
+        const token = getToken();
 
         if (!token) {
             throw new Error('Token not found');
