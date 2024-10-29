@@ -66,7 +66,7 @@ export default function AppNavigator() {
             </Stack.Screen>
             <Stack.Screen name="Test" component={Test} />
           </Stack.Navigator>
-          <Navbar />
+          <Navbar user={user} />
           <Footer />
         </>
       )}

@@ -113,8 +113,7 @@ export const GetUser = async () => {
         return response.data; // Return the user data
     } catch (error) {
         console.error('Error in GetUser:', error.response ? error.response.data : error.message);
-        if (error.response)
-            return error.response.data;
+        return null;
     }
 };
 
