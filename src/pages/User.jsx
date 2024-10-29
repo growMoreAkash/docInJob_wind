@@ -3,8 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { GetOtp, Login } from '../api/api';
 
-const User = ({ route }) => {
-    const { user, getUser } = route.params;
+const User = ({ user, getUser }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState('');
     const [otpSent, setOtpSent] = useState(false);
@@ -73,7 +72,7 @@ const User = ({ route }) => {
                 {/* Send OTP Button */}
                 {!otpSent && (
                     <Pressable
-                        className='w-11/12 bg-purple-800 py-3 rounded-lg mb-4'
+                        className='bg-purple-800 py-3 rounded-lg mb-4'
                         onPress={sendOtp}
                     >
                         <Text className='text-white text-center text-lg'>Send OTP</Text>

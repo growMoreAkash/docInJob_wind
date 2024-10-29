@@ -21,6 +21,7 @@ export default function AppNavigator() {
   const [cities, setCities] = useState(['']);
   const [cityIndex, setCityIndex] = useState(1);
   const [specialities, setSpecialities] = useState([]);
+  const [search, setSearch] = useState('');
 
   const handleSplashFinish = () => {
     setIsSplashVisible(false); // Hide the splash screen
@@ -30,12 +31,12 @@ export default function AppNavigator() {
     setUser(await GetUser());
   }
 
-  const getCities = async (city) => {
-    setCities([''].concat(await GetCities(city)));
+  const getCities = async () => {
+    setCities([''].concat(await GetCities()));
   }
 
-  const getSpecialities = async (city) => {
-    setSpecialities(await GetSpecialities(city));
+  const getSpecialities = async () => {
+    setSpecialities(await GetSpecialities());
   }
 
   useEffect(() => {
@@ -51,12 +52,18 @@ export default function AppNavigator() {
       ) : (
         <>
           <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} initialParams={{ setCityIndex: setCityIndex, cities: cities, specialities: specialities, cityIndex: cityIndex }} />
-            <Stack.Screen name="User" component={User} initialParams={{ user: user, getUser: getUser }} />
+            <Stack.Screen name="Home">
+              {(props) => <Home {...props} setSearch={setSearch} search={search} setCityIndex={setCityIndex} cities={cities} specialities={specialities} cityIndex={cityIndex} />}
+            </Stack.Screen>
+            <Stack.Screen name="User">
+              {(props) => <User {...props} user={user} getUser={getUser} />}
+            </Stack.Screen>
             <Stack.Screen name="Appointments" component={Appointments} />
             <Stack.Screen name="About" component={About} />
             <Stack.Screen name="Comming" component={Comming} />
-            <Stack.Screen name="Doctor" component={Doctor} initialParams={{ user: user, setCityIndex: setCityIndex, cities: cities, cityIndex: cityIndex, specialities: specialities }} />
+            <Stack.Screen name="Doctor">
+              {(props) => <Doctor {...props} user={user} setSearch={setSearch} search={search} setCityIndex={setCityIndex} cities={cities} cityIndex={cityIndex} specialities={specialities} />}
+            </Stack.Screen>
             <Stack.Screen name="Test" component={Test} />
           </Stack.Navigator>
           <Navbar />

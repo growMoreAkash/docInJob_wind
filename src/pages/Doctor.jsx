@@ -11,8 +11,7 @@ const StyledText = styled(Text);
 const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledTextInput = styled(TextInput);
 
-const Doctor = ({ route }) => {
-    const { user, setCityIndex, cities, cityIndex, specialities } = route.params;
+const Doctor = ({ user, setSearch, search, setCityIndex, cities, cityIndex, specialities }) => {
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState(1);
     const [shown, setShown] = useState(0);
@@ -21,11 +20,11 @@ const Doctor = ({ route }) => {
     const [newResults, setNewResults] = useState([]);
     const [filters, setFilters] = useState({
         city: cities[cityIndex] ?? '',
-        speciality: '',
+        speciality: search in specialities ? search : '',
         experience: '5',
         fee: '',
         gender: '',
-        docSpe: '',
+        docSpe: search in specialities ? '' : search,
     });
     const [modalVisible, setModalVisible] = useState({ key: '', visible: false });
     const dropdownData = {
@@ -67,12 +66,14 @@ const Doctor = ({ route }) => {
             setTotal(response.totalResults);
         };
 
+        setSearch(filters.docSpe);
         setCityIndex(cities.indexOf(filters.city));
         Search();
     }, [filters, page, setPage, setPages, setTotal]);
 
     const renderDropdown = (key) => (
         <Modal
+            key={key}
             transparent
             visible={modalVisible.key === key && modalVisible.visible}
             onRequestClose={() => setModalVisible({ key: '', visible: false })}
@@ -104,6 +105,7 @@ const Doctor = ({ route }) => {
 
     const renderDoctor = (key, doctor) => (
         <Modal
+            key={key}
             transparent
             visible={modalVisible.key === key && modalVisible.visible}
             onRequestClose={() => setModalVisible({ key: '', visible: false })}
@@ -124,29 +126,37 @@ const Doctor = ({ route }) => {
     );
 
     return (
-        <StyledView className="flex-1 p-4 mt-16">
+        <StyledView className="flex-1 mt-10 mb-72 pb-4">
             {/* Search Bar Section */}
-            <StyledView className="flex-row justify-between mb-4">
+            <StyledView className="flex-row justify-between mx-4 mb-3">
                 <StyledTextInput
                     className="border border-orange-500 rounded-lg p-2 flex-1 mr-2"
                     value={filters.city}
                     onChangeText={(text) => setFilters({ ...filters, city: text })}
-                    placeholder="Search City"
+                    placeholder="City"
                 />
                 <StyledTextInput
                     className="border border-orange-500 rounded-lg p-2 flex-1"
                     value={filters.speciality}
                     onChangeText={(text) => setFilters({ ...filters, speciality: text })}
-                    placeholder="Search Speciality"
+                    placeholder="Speciality"
+                />
+            </StyledView>
+            <StyledView className="flex-row justify-between mx-4 mb-3">
+                <StyledTextInput
+                    className="border border-orange-500 rounded-lg p-2 flex-1"
+                    value={filters.docSpe}
+                    onChangeText={(text) => setFilters({ ...filters, docSpe: text })}
+                    placeholder="Search"
                 />
             </StyledView>
 
             {/* Filters Section */}
-            <StyledView className="flex-row justify-evenly mb-4">
+            <StyledView className="flex-row justify-evenly mx-3 mb-4">
                 {Object.keys(dropdownData).map((key) => (
                     <StyledTouchableOpacity
                         key={key}
-                        className="p-2 border border-orange-500 rounded-lg min-w-[100px] "
+                        className="p-2 border border-orange-500 rounded-lg flex-1 mx-1"
                         onPress={() => setModalVisible({ key, visible: true })}
                     >
                         {/* <Text className="text-start">hhj</Text> */}
@@ -156,28 +166,30 @@ const Doctor = ({ route }) => {
             </StyledView>
 
             {/* Results Section */}
-            <StyledText className="text-lg font-semibold text-purple-800 mb-2">
-                Showing {shown} of {total} Results
-            </StyledText>
-            <FlatList
-                data={results}
-                keyExtractor={(item) => `${item.clinicId}${item.doctorId}`}
-                renderItem={({ item }) =>
+            <StyledView className="mx-4">
+                <StyledText className="text-lg font-semibold text-purple-800 mb-2">
+                    Showing {shown} of {total} Results
+                </StyledText>
+                <FlatList
+                    data={results}
+                    keyExtractor={(item) => `${item.clinicId}${item.doctorId}`}
+                    renderItem={({ item }) =>
+                        <StyledTouchableOpacity
+                            onPress={() => setModalVisible({ key: `${item.clinicId}${item.doctorId}`, visible: true })}
+                        >
+                            <DoctorCard doctor={item} />
+                        </StyledTouchableOpacity>
+                    }
+                />
+                {page < pages && (
                     <StyledTouchableOpacity
-                        onPress={() => setModalVisible({ key: `${item.clinicId}${item.doctorId}`, visible: true })}
+                        className="bg-purple-800 p-2 rounded-lg mt-4"
+                        onPress={() => setPage(page + 1)}
                     >
-                        <DoctorCard doctor={item} />
+                        <StyledText className="text-white">Load More</StyledText>
                     </StyledTouchableOpacity>
-                }
-            />
-            {page < pages && (
-                <StyledTouchableOpacity
-                    className="bg-purple-800 p-2 rounded-lg mt-4"
-                    onPress={() => setPage(page + 1)}
-                >
-                    <StyledText className="text-white">Load More</StyledText>
-                </StyledTouchableOpacity>
-            )}
+                )}
+            </StyledView>
 
             {/* Render Doctor Modals */}
             {results.map((doctor) => renderDoctor(`${doctor.clinicId}${doctor.doctorId}`, doctor))}

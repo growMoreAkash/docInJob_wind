@@ -1,29 +1,18 @@
-import { View, Text, TextInput, Pressable, Image, ScrollView, Alert } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable, Image, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 
-const Sec1 = ({ setCityIndex, cities, specialities, cityIndex }) => {
-    const [Location, setLocation] = useState("");
-    const [Search, setSearch] = useState("");
+const Sec1 = ({ setSearch, search, setCityIndex, cities, specialities, cityIndex }) => {
+    const navigation = useNavigation();
 
     const submit = () => {
         // Validate inputs
-        if (Location.trim() === "" || Search.trim() === "") {
+        if (cities[cityIndex].trim() === "" || search.trim() === "") {
             Alert.alert("Error", "Both fields are required!");
             return;
         }
-        if (Search.trim()) {
-            if (specialities.includes(Search))
-                navigate(`/search?city=${Location}&speciality=${Search}`);
-            else
-                navigate(`/search/?city=${Location}&docSpe=${Search}`);
-        }
+        navigation.navigate('Doctor')
     };
-
-    useEffect(() => {
-        if (cityIndex < cities.length && cityIndex >= 0) {
-            setLocation(cities[cityIndex]);
-        }
-    }, [setLocation, cities, cityIndex]);
 
     return (
         <>
@@ -38,8 +27,8 @@ const Sec1 = ({ setCityIndex, cities, specialities, cityIndex }) => {
                 />
                 <TextInput
                     placeholder="Find Location..."
-                    value={Location}
-                    onChangeText={(text) => setLocation(text)}
+                    value={cities[cityIndex]}
+                    onChangeText={(text) => setCityIndex(cities.indexOf(text) ?? 0)}
                     className="flex-1 text-base"
                 />
             </View>
@@ -51,7 +40,7 @@ const Sec1 = ({ setCityIndex, cities, specialities, cityIndex }) => {
                 />
                 <TextInput
                     placeholder="Search Doctor, Speciality etc..."
-                    value={Search}
+                    value={search}
                     onChangeText={(text) => setSearch(text)}
                     className="flex-1 text-base"
                 />

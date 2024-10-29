@@ -1,19 +1,17 @@
-import { View, Text, TextInput, Pressable, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import React from 'react';
 import Sec1 from '../components/main/Sec1';
 import Sec2 from '../components/main/Sec2';
 import Sec3 from '../components/main/Sec3';
 
-const Home = ({ route }) => {
-    const { setCityIndex, cities, specialities, cityIndex } = route.params;
-
+const Home = ({ setSearch, search, setCityIndex, cities, specialities, cityIndex }) => {
     return (
         <>
             <ScrollView className="flex-1 pt-8 mb-16">
                 <View className="justify-start items-center">
-                    <Sec1 setCityIndex={setCityIndex} cities={cities} specialities={specialities} cityIndex={cityIndex} />
+                    <Sec1 setSearch={setSearch} search={search} setCityIndex={setCityIndex} cities={cities} specialities={specialities} cityIndex={cityIndex} />
 
-                    <Sec2 />
+                    <Sec2 setSearch={setSearch} />
 
                     <Sec3 />
 
