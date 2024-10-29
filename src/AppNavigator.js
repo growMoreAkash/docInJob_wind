@@ -7,6 +7,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import User from "./pages/User.jsx";
+import Appointments from './pages/Appointments.jsx';
 import Doctor from './pages/Doctor.jsx';
 import Test from './pages/Test.jsx';
 import Comming from './pages/Comming.jsx';
@@ -52,6 +53,7 @@ export default function AppNavigator() {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} initialParams={{ setCityIndex: setCityIndex, cities: cities, specialities: specialities, cityIndex: cityIndex }} />
             <Stack.Screen name="User" component={User} initialParams={{ user: user, getUser: getUser }} />
+            <Stack.Screen name="Appointments" component={Appointments} />
             <Stack.Screen name="About" component={About} />
             <Stack.Screen name="Comming" component={Comming} />
             <Stack.Screen name="Doctor" component={Doctor} initialParams={{ user: user, setCityIndex: setCityIndex, cities: cities, cityIndex: cityIndex, specialities: specialities }} />

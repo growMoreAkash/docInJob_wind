@@ -67,6 +67,7 @@ const Doctor = ({ route }) => {
             setTotal(response.totalResults);
         };
 
+        setCityIndex(cities.indexOf(filters.city));
         Search();
     }, [filters, page, setPage, setPages, setTotal]);
 

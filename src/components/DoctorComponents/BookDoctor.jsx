@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BookAppointment, AppointmentPayment } from '../../api/api.jsx';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 
@@ -117,7 +117,9 @@ const BookDoctor = ({ doctor, user = null }) => {
                 }
             });
             response = await AppointmentPayment({ params: { appId: response._id, policy_name: 'xyz' } });
-            window.location.href = response.short_url;
+            Linking.canOpenURL(response.short_url).then(() => {
+                Linking.openURL(response.short_url);
+            });
         } catch (error) {
             console.error('Error in BookAppointment:', error.response ? error.response.data : error.message);
             setSubmitText('Book Now');
