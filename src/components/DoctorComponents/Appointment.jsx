@@ -16,7 +16,7 @@ const Appointment = ({ appointment }) => {
     }
 
     return (
-        <View>
+        <View className="border border-orange-500 rounded-lg p-1 my-2 w-full">
             <View className="p-2">
                 <Text className="text-lg">{appointment.doctorId.name}</Text>
                 <Text className="text-slate-400">{appointment.doctorId.specialization}</Text>
@@ -30,7 +30,7 @@ const Appointment = ({ appointment }) => {
                 <View>
                     <View className="flex-row items-center gap-2">
                         <Text className="text-lg">{appointment.clinicId.name}</Text>
-                        <TouchableOpacity onPress={Linking.canOpenURL(appointment.clinicId.map_link).then(() => { Linking.openURL(appointment.clinicId.map_link); })}>
+                        <TouchableOpacity onPress={Linking.openURL(appointment.clinicId.map_link)}>
                             <Text>Open in Map</Text>
                             {/* <i className="bi bi-map lh-1"></i> */}
                         </TouchableOpacity>

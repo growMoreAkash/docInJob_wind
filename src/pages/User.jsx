@@ -57,7 +57,7 @@ const User = ({ user, getUser }) => {
                 </View>
 
                 {/* OTP Input (shown after sending OTP) */}
-                {otpSent && (
+                {/*otpSent &&*/ (
                     <View className="flex-row items-center w-11/12 h-12 px-4 bg-gray-100 border-[1px] border-orange-500 rounded-lg mb-4">
                         <TextInput
                             className='flex-1 text-base'
@@ -70,7 +70,7 @@ const User = ({ user, getUser }) => {
                 )}
 
                 {/* Send OTP Button */}
-                {!otpSent && (
+                {/*!otpSent &&*/ (
                     <Pressable
                         className='bg-purple-800 py-3 rounded-lg mb-4'
                         onPress={sendOtp}
@@ -80,9 +80,9 @@ const User = ({ user, getUser }) => {
                 )}
 
                 {/* Submit Button (shown after sending OTP) */}
-                {otpSent && (
+                {/*otpSent &&*/ (
                     <Pressable
-                        className='w-11/12 bg-purple-800 py-3 rounded-lg'
+                        className='bg-purple-800 py-3 rounded-lg'
                         onPress={submitForm}
                     >
                         <Text className='text-white text-center text-lg'>Submit</Text>

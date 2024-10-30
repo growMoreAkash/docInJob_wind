@@ -1,24 +1,19 @@
 import axios from 'axios';
-import * as Keychain from 'react-native-keychain';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import * as SecureStore from 'expo-secure-store';
 
 // To store the token securely
 async function storeToken(token) {
-  await Keychain.setGenericPassword('authToken', token);
+  await SecureStore.setItemAsync('authToken', token);
 }
 
 // To retrieve the token
 async function getToken() {
-  const credentials = await Keychain.getGenericPassword();
-  if (credentials) {
-    return credentials.password;
-  }
-  return null;
+  return await SecureStore.getItemAsync('authToken');
 }
 
 // To delete the token
 async function deleteToken() {
-  await Keychain.resetGenericPassword();
+  await SecureStore.deleteItemAsync('authToken');
 }
 
 const apiUrl = "https://www.docinjob.com/api"
@@ -40,15 +35,8 @@ export const GetCities = async () => {
         return response.data;
     } catch (error) {
         console.error("Error:", error.message);
-        if (error.response) {
-            console.log("Data:", error.response.data);
-            console.log("Status:", error.response.status);
-            console.log("Headers:", error.response.headers);
-        } else if (error.request) {
-            console.log("Request:", error.request);
-        } else {
-            console.log("Message:", error.message);
-        }
+        if (error.response)
+            return [];
     }
 }
 
@@ -59,7 +47,7 @@ export const GetSpecialities = async () => {
     } catch (error) {
         console.error('Error in GetSpeciality:', error.response ? error.response.data : error.message);
         if (error.response)
-            return error.response.data;
+            return [];
     }
 }
 
@@ -83,7 +71,7 @@ export const Login = async ({ phone, otp }) => {
 
         const { token } = response.data;
 
-        storeToken(token);
+        await storeToken(token);
 
         return response.data;
     } catch (error) {
@@ -95,12 +83,12 @@ export const Login = async ({ phone, otp }) => {
 };
 
 export const Logout = async () => {
-    deleteToken();
+    await deleteToken();
 }
 
 export const GetUser = async () => {
     try {
-        const token = getToken();
+        const token = await getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -119,7 +107,7 @@ export const GetUser = async () => {
 
 export const UpdateUser = async ({ name, age, gender, address }) => {
     try {
-        const token = getToken();
+        const token = await getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -146,7 +134,7 @@ export const UpdateUser = async ({ name, age, gender, address }) => {
 
 export const BookAppointment = async ({ data }) => {
     try {
-        const token = getToken();
+        const token = await getToken();
 
         if (!token) {
             throw new Error('Token not found');
@@ -177,7 +165,7 @@ export const AppointmentPayment = async ({ params }) => {
 
 export const GetAppointments = async ({ data }) => {
     try {
-        const token = getToken();
+        const token = await getToken();
 
         if (!token) {
             throw new Error('Token not found');

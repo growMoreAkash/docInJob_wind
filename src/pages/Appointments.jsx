@@ -13,11 +13,11 @@ const Appointments = () => {
 
     const getAppointments = useCallback(async () => {
         var response = await GetAppointments({ data: { page: page } });
-        if (page !== response.currentPage)
-            setPage(response.currentPage);
-        setNewAppointments(response.results);
-        setPages(response.totalPages);
-        setTotal(response.totalResults);
+        if (page !== response.pagination.currentPage)
+            setPage(response.pagination.currentPage);
+        setNewAppointments(response.appointments);
+        setPages(response.pagination.totalPages);
+        setTotal(response.pagination.totalAppointments);
     }, [page]);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const Appointments = () => {
     }, [getAppointments]);
 
     return (
-        <ScrollView className="flex-1 mt-[60px] mb-16 ">
+        <ScrollView className="flex-1 mt-[60px] mb-16 p-3">
             <Text className='text-slate-400 mt-0 mb-3'>Showing {shown} of {total} Appointments</Text>
             <View className="justify-center items-center">
                 {appointments.length ? appointments.map((appointment, index) => (
