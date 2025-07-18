@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import DropdownMenu from './DropdownMenu';
 import { Logout } from '../api/api';
+import { FaUser } from "react-icons/fa";
 
 const Navbar = ({ user, getUser }) => {
     const navigation = useNavigation();
@@ -25,7 +26,7 @@ const Navbar = ({ user, getUser }) => {
                     <Image source={require('../img/Logo.png')} className="w-[150] h-20" resizeMode="contain" />
                 </Pressable>
             </View>
-            {user ? (<DropdownMenu display={<Text className="text-lg text-right p-3">{user.name}</Text>} options={['Profile', 'Appointments', 'Logout']} onSelect={handleSelect} />) : (<Pressable onPress={() => navigation.navigate('User')}
+            {user ? (<DropdownMenu display={<Text className="text-lg text-right text-orange-500 p-3 border-2 border-orange-500">{user.name}</Text>} options={['Profile', 'Appointments', 'Logout']} onSelect={handleSelect} />) : (<Pressable onPress={() => navigation.navigate('User')}
                 className="w-auto px-3 h-12 bg-purple-800 rounded-lg justify-center items-center">
                 <Text className="text-white text-lg ">Sign in | Sign up</Text>
             </Pressable>)}

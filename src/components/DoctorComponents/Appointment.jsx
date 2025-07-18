@@ -54,7 +54,7 @@ const Appointment = ({ appointment }) => {
             </View>
             <View className="p-2">
                 {appointment.paymentStatus !== "paid" ? (
-                    <TouchableOpacity onPress={pay} className="bg-purple-800 rounded-lg p-2" disabled={payDisabled}><Text>{payText}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={pay} className="bg-purple-800 text-white rounded-lg p-2 py-2" disabled={payDisabled}><Text>{payText}</Text></TouchableOpacity>
                 ) : (<Text className="py-2" disabled={true}>Payment Done</Text>)}
             </View>
         </View>

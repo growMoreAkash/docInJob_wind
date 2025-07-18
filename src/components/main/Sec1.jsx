@@ -16,7 +16,7 @@ const Sec1 = ({ setSearch, search, setCityIndex, cities, specialities, cityIndex
 
     return (
         <>
-            <Text className="text-[24px] mx-3 px-10 text-center mb-4 text-purple-800 font-semibold">
+            <Text className="text-[24px] mx-3 px-10 text-center mb-4 mt-4 text-purple-800 font-semibold">
                 Book an appointment with your doctor
             </Text>
             <View className="flex-row items-center w-11/12 h-12 px-4 bg-gray-100 border-[1px] border-orange-500 rounded-lg">

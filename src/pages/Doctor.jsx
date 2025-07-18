@@ -4,6 +4,7 @@ import { styled } from 'nativewind';
 import { GetSearch } from '../api/api';
 import DoctorCard from '../components/DoctorComponents/DoctorCard.jsx';
 import BookDoctor from '../components/DoctorComponents/BookDoctor.jsx';
+import { MdArrowBackIosNew } from "react-icons/md";
 
 // Styling components with NativeWind
 const StyledView = styled(View);
@@ -110,12 +111,12 @@ const Doctor = ({ user, setSearch, search, setCityIndex, cities, cityIndex, spec
             visible={modalVisible.key === key && modalVisible.visible}
             onRequestClose={() => setModalVisible({ key: '', visible: false })}
         >
-            <StyledView className="flex-1 bg-black/50 justify-center items-center">
+            <StyledView className="flex-1 bg-black/50 justify-center items-center mt-10">
                 <StyledView className="bg-white px-3 py-2">
                     <StyledView className="flex-row justify-between items-center">
                         <StyledText className="text-lg font-semibold">Book Appointment</StyledText>
                         <StyledTouchableOpacity onPress={() => setModalVisible({ key: '', visible: false })}>
-                            <StyledText>Close</StyledText>
+                            <StyledText className='text-3xl mr-3 text-red-500'>X</StyledText>
                         </StyledTouchableOpacity>
                     </StyledView>
                     <DoctorCard doctor={doctor} />

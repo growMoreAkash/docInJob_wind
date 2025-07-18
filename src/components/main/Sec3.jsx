@@ -9,7 +9,7 @@ const Sec3 = () => {
             <View className="items-center mx-[-25]">
                 <Image source={require('../../img/Lab-Test-Icon.png')} className="w-[150px] h-20" resizeMode="contain" />
 
-                <Pressable className="h-12 mt-6  border-[1px] border-gray-500 rounded-lg justify-center items-center" onPress={() => navigation.navigate('Comming')}>
+                <Pressable className="h-12 mt-6  border-[1px] border-gray-500 rounded-lg justify-center items-center" onPress={() => navigation.navigate('Test')}>
                     <Text className="text-orange-500 text-center text-md font-semibold w-[100] px-1">Book Lab Test</Text>
                 </Pressable>
             </View>
